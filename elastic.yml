@@ -1,0 +1,12 @@
+---
+- name: Deploy Elasticsearch with Docker
+  hosts: localhost
+  become: true
+  become_user: richa
+  # become_method: sudo
+  gather_facts: false
+  roles:
+    - elastic-docker
+
+
+

@@ -1,0 +1,38 @@
+---
+- name: Create Docker network
+  docker_network:
+    name: my-network
+
+- name: Ensure config directory is present
+  file:
+    path: "/home/richa/ansible/logstashdata/config"
+    state: directory
+    owner: 1000
+    group: 1000
+    mode: "0755"
+
+- name: Copy Logstash configuration file
+  template:
+    src: logstash.conf
+    dest: "/home/richa/ansible/logstashdata/config/logstash.conf"
+    owner: 1000
+    group: 1000
+    mode: "0755"
+
+- name: Pull Logstash Docker image
+  docker_image:
+    name: "docker.elastic.co/logstash/logstash:7.14.0"  # Specify the version tag directly
+    source: pull
+
+- name: Run Logstash container
+  docker_container:
+    name: logstash
+    image: "docker.elastic.co/logstash/logstash:7.14.0"  # Specify the version tag directly
+    state: started
+    ports:
+      # - ""
+      - "9600:9600"
+    volumes:
+      - "/home/richa/ansible/logstashdata/config/logstash.conf:/usr/share/logstash/pipeline/logstash.conf"
+    networks:
+      - name: my-network

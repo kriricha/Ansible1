@@ -1,0 +1,9 @@
+- name: Ensure template file is present
+  template:
+    src: filebeat.yml
+    dest: /home/richa/ansible/esdata/config/filebeat.yml
+    owner: 1000
+    group: 1000
+    mode: 0775
+    force: yes
+

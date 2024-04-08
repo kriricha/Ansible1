@@ -1,0 +1,8 @@
+---
+- name: Install and Configure Kibana with Docker
+  hosts: localhost
+  become: true
+  become_user: richa
+  gather_facts: false
+  roles:
+    - docker-kibana

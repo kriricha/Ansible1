@@ -1,0 +1,54 @@
+---
+- name: Create Docker network
+  docker_network:
+    name: my-network
+
+- name: ensure config dirctory present
+  file:
+    path: "/home/richa/ansible/elasticdata/elasticconfig"
+    state: directory
+    owner: 1000
+    group: 1000
+    mode: 0775
+    force: yes
+
+- name: ensure template file is present
+  template:
+    src: elasticsearch.yml
+    dest: /home/richa/ansible/elasticdata/elasticconfig/elasticsearch.yml
+    owner: 1000
+    group: 1000
+    mode: 0775
+    force: yes
+
+- name: pull elasticsearch docker image
+  docker_image:
+    name:  docker.elastic.co/elasticsearch/elasticsearch:7.17.0
+    source: pull
+
+- name: Install Elasticsearch using Docker
+  docker_container:
+    name: elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.0
+    state: started
+    ports:
+      - "9200:9200"
+        #env:
+        #discovery.type: single-node
+    volumes:
+       - /home/richa/ansible/elasticdata/elasticconfig/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml 
+    networks:
+       - name: my-network
+         
+- name: wait for cluster to get ready
+  uri:
+    url: http://localhost:9200/_cluster/health?pretty
+    method: GET
+    status_code: [200]
+    # user: elasticuser
+    # passwrod: elasticpassword
+    validate_certs: false
+  register: result
+  until: result.status == 200
+  retries: 20
+  delay: 10

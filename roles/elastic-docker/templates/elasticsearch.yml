@@ -1,0 +1,8 @@
+---
+# Elasticsearch Configuration
+cluster.name: "{{ cluster_name }}"
+node.name: single-node
+network.host: 0.0.0.0
+discovery.type: single-node
+
+

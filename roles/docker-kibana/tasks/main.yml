@@ -1,0 +1,15 @@
+---
+- name: Pull Kibana Docker image
+  docker_image:
+    name: docker.elastic.co/kibana/kibana:7.17.0
+    source: pull
+
+- name: Run Kibana container
+  docker_container:
+    name: kibana
+    image: docker.elastic.co/kibana/kibana:7.17.0
+    state: started
+    ports:
+      - "5601:5601"
+    networks:
+      - name: my-network

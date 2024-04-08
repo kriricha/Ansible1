@@ -1,0 +1,9 @@
+- name: Ensure config directory is present
+  file:
+    path: "/home/richa/ansible/esdata/config"
+    state: directory
+    owner: 1000
+    group: 1000
+    mode: 0775
+    force: yes
+

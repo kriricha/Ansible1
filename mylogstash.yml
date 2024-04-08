@@ -1,0 +1,9 @@
+---
+- name: Deploy logstash using Docker
+  hosts: localhost
+  become: true
+  become_user: richa
+  tasks:
+    - name: Include logstash role
+      include_role:
+        name: docker-logstash

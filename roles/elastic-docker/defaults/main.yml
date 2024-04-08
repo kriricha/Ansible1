@@ -1,0 +1,13 @@
+---
+# Default values for Elasticsearch configuration
+cluster.name: test123
+node.name: "default_node_name"
+node.port: 9200
+config.dir: "/etc/elasticsearch"
+config.file: "elasticsearch.yml"
+node_name: test
+network_host: ""
+http_port: ""
+data_path: ""
+logs_path: ""
+cluster_name: "test123"

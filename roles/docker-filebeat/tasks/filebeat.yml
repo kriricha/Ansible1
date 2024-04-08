@@ -1,0 +1,24 @@
+- name: Install Filebeat in Docker
+  docker_container:
+    name: filebeat
+    image: docker.elastic.co/beats/filebeat:7.15.2
+    state: started
+    restart_policy: always
+    volumes:
+      - /home/richa/ansible/esdata/config/filebeat.yml:/usr/share/filebeat/filebeat.yml
+      - /mnt/e/ELK/samplelog.json:/usr/share/filebeat/samplelog.json
+      # - /var/log:/log:z
+      # - /var/log:/log --user ${GID}:${UID} docker.elastic.co/beats/filebeat
+      # - /var/lib/docker/containers:/var/lib/docker/containers? 
+    # network_mode: host
+    ports:
+      - "5044:5044"
+      # - "9200:9200"
+    command: ["filebeat", "-e", "-strict.perms=false"]
+    networks:
+      -  name: my-network
+   
+
+
+
+
