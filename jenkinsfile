@@ -1,26 +1,34 @@
 pipeline {
     agent any
-    
+    parameters {
+        choice(name: 'shellscript', choices: ['elasticsearch', 'kibana', 'filebeat', 'logstash'], description: 'Select the component for the script')
+    }
     stages {
-        stage('Give Permission') {
+        stage('Clone Git Repository') {
             steps {
-                // Give execution permission to execute_playbooks script
-                sh 'chmod +x execute_playbooks.sh'
+                // Clone the Git repository
+                git(
+                    url: "https://github.com/kriricha/Ansible1.git",
+                    branch: "master",
+                    changelog: true,
+                    poll: true
+                )
             }
         }
         
-        stage('Execute Playbooks') {
+        stage('Run script') {
             steps {
-                // Execute the script
-                sh './execute_playbooks.sh'
+                // Ensure proper permissions
+                script {
+                    // Change directory to the repository
+                    def repoDir = "/home/richa/Ansible1"
+                    //sh "chmod -R 777 ${repoDir}"
+                    
+                    // Execute your script with the selected component parameter
+                    echo "Selected component: ${params.shellscript}"
+                    sh "${repoDir}/file.sh ${params.shellscript}"
+                }
             }
-        }
-    }
-    
-    post {
-        always {
-            // Print a message indicating successful execution
-            echo 'Pipeline executed successfully.'
         }
     }
 }
