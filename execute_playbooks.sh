@@ -4,16 +4,16 @@ choice="$1"
 case $choice in
         elasticsearch)
                 echo "elastic search runnng"
-                ansible-playbook ./ansible/playbook.yml
+                ansible-playbook ./Ansible1/elastic.yml
                 ;;
         kibana) echo "you select kibana"
-                ansible-playbook ./ansible/kibana_playbook.yml
+                ansible-playbook ./Ansible1/mykibana.yml
                 ;;
         filebeat) echo "you select filebeat"
-                ansible-playbook ./ansible/filebeat_playbook.yml
+                ansible-playbook ./Ansible1/myfilebeat.yml
                 ;;
         logstash) echo "you select logstash"
-                ansible-playbook ./ansible/logstash_playbook.yml
+                ansible-playbook ./ansible/mylogstash.yml
                 ;;
         quit) echo "Quitting" exit
                 ;;
