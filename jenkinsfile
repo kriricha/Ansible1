@@ -26,7 +26,7 @@ pipeline {
                     
                     // Execute your script with the selected component parameter
                     echo "Selected component: ${params.shellscript}"
-                    sh "${repoDir}/execute_playbook.sh ${params.shellscript}"
+                    sh "${repoDir}/execute_playbooks.sh ${params.shellscript}"
                 }
             }
         }
