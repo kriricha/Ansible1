@@ -13,7 +13,7 @@ case $choice in
                 ansible-playbook ./Ansible1/myfilebeat.yml
                 ;;
         logstash) echo "you select logstash"
-                ansible-playbook ./ansible/mylogstash.yml
+                ansible-playbook ./Ansible1/mylogstash.yml
                 ;;
         quit) echo "Quitting" exit
                 ;;
