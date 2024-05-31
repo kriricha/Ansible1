@@ -6,7 +6,7 @@
     restart_policy: always
     volumes:
       - /home/richa/ansible/esdata/config/filebeat.yml:/usr/share/filebeat/filebeat.yml
-      - /mnt/e/ELK/samplelog.json:/usr/share/filebeat/samplelog.json
+      - /mnt/e/ELK/Hello.json:/usr/share/filebeat/Hello.json
       # - /var/log:/log:z
       # - /var/log:/log --user ${GID}:${UID} docker.elastic.co/beats/filebeat
       # - /var/lib/docker/containers:/var/lib/docker/containers? 
